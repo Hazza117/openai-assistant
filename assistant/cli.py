@@ -77,7 +77,9 @@ def execute_python_file(filename: str, arguments: str | None = None) -> str:
     system_log("EXECUTE", *[str(c) for c in command])
 
     try:
-        out = subprocess.check_output(command, stderr=subprocess.STDOUT).decode()
+        out = subprocess.check_output(
+            command, stderr=subprocess.STDOUT, cwd=WORKING_DIR
+        ).decode()
     except subprocess.CalledProcessError as e:
         out = e.output.decode()
     system_log("RESULTS", out)

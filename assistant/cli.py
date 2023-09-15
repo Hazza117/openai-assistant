@@ -89,10 +89,10 @@ def execute_python_file(filename: str, arguments: str | None = None) -> str:
 
 def write_file(filename: str, data: str) -> str:
     system_log("WRITE", filename)
-    if not WORKING_DIR.exists():
-        WORKING_DIR.mkdir()
+    path = WORKING_DIR / filename
+    path.parent.mkdir(parents=True, exist_ok=True)
 
-    with open(WORKING_DIR / filename, "w") as f:
+    with open(path, "w") as f:
         f.write(data)
 
     return "File has been written"
